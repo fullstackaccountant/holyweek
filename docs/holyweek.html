@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catholic Holy Week — Palm Sunday to Easter Sunday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  background: #0a0a0a;
+  color: #1a1a1a;
+}
+
+/* ============================================
+   SLIDE CONTAINER
+   ============================================ */
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  pointer-events: none;
+  overflow-y: auto;
+}
+
+.slide.active {
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.slide.prev {
+   display: none;
+}
+
+/* ============================================
+   TITLE SLIDES (full-bleed background)
+   ============================================ */
+.slide-title {
+  text-align: center;
+  color: #FFFFFF;
+  position: relative;
+}
+
+/* --- Title Slide Backgrounds (CSS only, bold & vivid) --- */
+
+/* Opening: deep purple to gold diagonal */
+.title-opening {
+  background: linear-gradient(135deg, #2d006b 0%, #5b1aad 30%, #b8860b 70%, #ffd700 100%);
+}
+
+/* Palm Sunday: rich red to olive green */
+.title-palm {
+  background: linear-gradient(135deg, #cc0000 0%, #990000 40%, #228B22 70%, #006400 100%);
+}
+
+/* Monday: vibrant purple */
+.title-monday {
+  background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 50%, #4B0082 100%);
+}
+
+/* Tuesday: purple to gold */
+.title-tuesday {
+  background: linear-gradient(135deg, #7b2d8e 0%, #4B0082 40%, #daa520 70%, #b8860b 100%);
+}
+
+/* Spy Wednesday: dark charcoal to steel */
+.title-spy-wed {
+  background: linear-gradient(135deg, #2c3e50 0%, #4a6274 40%, #708090 70%, #36454F 100%);
+}
+
+/* Holy Thursday: rich gold */
+.title-thursday {
+  background: linear-gradient(135deg, #b8860b 0%, #daa520 30%, #ffd700 60%, #b8860b 100%);
+  color: #1a0a00;
+}
+.title-thursday h2 { color: #3d0c02; }
+.title-thursday .subtitle { color: rgba(40,20,0,0.85); }
+
+/* Good Friday: deep crimson to black */
+.title-good-friday {
+  background: linear-gradient(180deg, #8b0000 0%, #660000 40%, #330000 70%, #110000 100%);
+}
+
+/* Holy Saturday: midnight blue to indigo */
+.title-saturday {
+  background: linear-gradient(180deg, #000033 0%, #191970 35%, #4169E1 65%, #191970 100%);
+}
+
+/* Easter Sunday: bright golden sunrise */
+.title-easter {
+  background: linear-gradient(0deg, #b8860b 0%, #ffd700 25%, #ffec8b 50%, #fffacd 75%, #ffffff 100%);
+  color: #1a0a2e;
+}
+.title-easter h2 { color: #8B0000; }
+.title-easter .subtitle { color: rgba(30,10,50,0.85); }
+
+.slide-title > * { position: relative; z-index: 1; }
+
+.slide-title h1 {
+  font-family: 'Cinzel', Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-shadow: 2px 3px 12px rgba(0,0,0,0.7);
+  margin-bottom: 16px;
+}
+
+.slide-title h2 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  font-weight: 400;
+  color: #D4AF37;
+  text-shadow: 1px 2px 8px rgba(0,0,0,0.6);
+  margin-bottom: 10px;
+}
+
+.slide-title .subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+.accent-stripe {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 8px;
+  z-index: 1;
+}
+
+/* ============================================
+   CONTENT SLIDES
+   ============================================ */
+.slide-content {
+  background: #FDFBF5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+  padding: 50px 70px;
+}
+
+.slide-content .day-banner {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 0;
+}
+
+.day-banner .day-icon {
+  font-size: 1.8rem;
+}
+
+.day-banner h2 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.content-left h3 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.content-left p, .content-left li {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #2a2a2a;
+}
+
+.content-left ul {
+  list-style: none;
+  padding: 0;
+}
+
+.content-left ul li {
+  padding-left: 26px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.content-left ul li::before {
+  content: '•';
+  position: absolute;
+  left: 6px;
+  font-weight: 700;
+}
+
+/* Bible verse callout */
+.verse-box {
+  background: rgba(255, 248, 220, 0.92);
+  border-left: 5px solid #D4AF37;
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.verse-box .verse-text {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #333;
+}
+
+.verse-box .verse-ref {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant: small-caps;
+  color: #8B6914;
+}
+
+/* ============================================
+   TRADITIONS SLIDES
+   ============================================ */
+.slide-traditions {
+  background: #F9F6EF;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 50px 70px;
+  gap: 20px;
+}
+
+.slide-traditions .day-banner {
+  margin-bottom: 10px;
+}
+
+.traditions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex: 1;
+}
+
+.tradition-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.tradition-card .t-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tradition-card h4 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.tradition-card p {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #444;
+}
+
+.history-box {
+  background: rgba(0,0,0,0.04);
+  border-radius: 10px;
+  padding: 18px 24px;
+  margin-top: auto;
+}
+
+.history-box h4 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.history-box p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #555;
+}
+
+/* ============================================
+   OVERVIEW / TABLE SLIDES
+   ============================================ */
+.slide-overview {
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d1054 50%, #1a0a2e 100%);
+  color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 60px;
+}
+
+.slide-overview h2 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #D4AF37;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.slide-overview p {
+  max-width: 800px;
+  text-align: center;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  color: rgba(255,255,255,0.88);
+}
+
+.week-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px;
+  font-size: 0.95rem;
+}
+
+.week-table th {
+  font-family: 'Cinzel', Georgia, serif;
+  background: rgba(212,175,55,0.2);
+  color: #D4AF37;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 18px;
+  text-align: left;
+  border-bottom: 2px solid rgba(212,175,55,0.4);
+}
+
+.week-table td {
+  padding: 10px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.9);
+}
+
+.week-table tr:hover td {
+  background: rgba(255,255,255,0.05);
+}
+
+/* ============================================
+   KEY TERMS SLIDE
+   ============================================ */
+.slide-terms {
+  background: linear-gradient(135deg, #0d0d2b 0%, #1a1a4e 100%);
+  color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 60px;
+  gap: 24px;
+}
+
+.slide-terms h2 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 2rem;
+  color: #D4AF37;
+}
+
+.terms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.term-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.term-card h4 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 0.95rem;
+  color: #D4AF37;
+  margin-bottom: 6px;
+}
+
+.term-card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ============================================
+   QUIZ SLIDE
+   ============================================ */
+.slide-quiz {
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d1054 100%);
+  color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 40px 60px;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.slide-quiz h2 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.5rem;
+  color: #D4AF37;
+}
+
+.quiz-question {
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 14px 20px;
+  width: 100%;
+  max-width: 750px;
+  margin-bottom: 2px;
+}
+
+.quiz-question h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.quiz-btn {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: #F5F5F5;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.quiz-btn:hover { background: rgba(255,255,255,0.18); border-color: #D4AF37; }
+.quiz-btn.correct { background: rgba(40,167,69,0.4); border-color: #28a745; }
+.quiz-btn.wrong { background: rgba(220,53,69,0.35); border-color: #dc3545; }
+
+/* ============================================
+   CLOSING SLIDE
+   ============================================ */
+.slide-closing {
+  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 40%, #FFFACD 100%);
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.slide-closing h1 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a0a2e;
+  margin-bottom: 12px;
+}
+
+.slide-closing h2 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  color: #8B0000;
+  margin-bottom: 30px;
+}
+
+.slide-closing p {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  max-width: 650px;
+  line-height: 1.7;
+  color: #333;
+}
+
+.slide-closing .verse-ref {
+  font-family: 'Nunito', sans-serif;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant: small-caps;
+  color: #555;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav-controls {
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.nav-btn {
+  pointer-events: auto;
+  background: rgba(0,0,0,0.5);
+  color: #F5F5F5;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  width: 48px; height: 48px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.nav-btn:hover { background: rgba(212,175,55,0.5); border-color: #D4AF37; }
+.nav-btn:focus-visible { outline: 3px solid #D4AF37; outline-offset: 2px; }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+.slide-counter {
+  pointer-events: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.4);
+  padding: 5px 14px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .slide { padding: 40px 30px; }
+  .slide-content { grid-template-columns: 1fr; padding: 40px 30px; gap: 24px; }
+  .traditions-grid { grid-template-columns: 1fr; }
+  .terms-grid { grid-template-columns: 1fr; }
+  .quiz-options { grid-template-columns: 1fr; }
+}
+
+@media print {
+   .slide { display: block !important; position: relative; page-break-after: always; opacity: 1; transform: none; height: auto; min-height: 100vh; }
+  .nav-controls { display: none; }
+}
+
+/* ============================================
+   LITURGICAL COLOR UTILITIES
+   ============================================ */
+.color-red { color: #8B0000; }
+.bg-red { background-color: #8B0000; }
+.color-purple { color: #4B0082; }
+.bg-purple { background-color: #4B0082; }
+.color-charcoal { color: #36454F; }
+.bg-charcoal { background-color: #36454F; }
+.color-gold { color: #D4AF37; }
+.bg-gold { background-color: #D4AF37; }
+.color-dark { color: #1a1a1a; }
+.bg-dark { background-color: #1a1a1a; }
+.color-midnight { color: #191970; }
+.bg-midnight { background-color: #191970; }
+.color-white { color: #FFFFFF; }
+.bg-white-gold { background: linear-gradient(135deg, #FFFFFF 0%, #FFD700 100%); }
+.bg-easter { background: linear-gradient(135deg, #FFD700, #FFFACD, #FFFFFF); }
+
+.border-accent-red .verse-box { border-left-color: #8B0000; }
+.border-accent-purple .verse-box { border-left-color: #4B0082; }
+.border-accent-charcoal .verse-box { border-left-color: #36454F; }
+.border-accent-gold .verse-box { border-left-color: #D4AF37; }
+.border-accent-dark .verse-box { border-left-color: #1a1a1a; }
+.border-accent-midnight .verse-box { border-left-color: #191970; }
+
+</style>
+</head>
+<body>
+
+<div class="deck" role="region" aria-label="Holy Week Presentation">
+
+<!-- ========================================
+     SLIDE 1 — OPENING TITLE
+     ======================================== -->
+<div class="slide slide-title title-opening active" role="group" aria-label="Slide 1: Opening Title" style="background: linear-gradient(135deg, #2d006b 0%, #5b1aad 30%, #b8860b 70%, #ffd700 100%);">
+  <div style="position:relative;z-index:1;">
+    <div style="font-size:3.5rem; margin-bottom:18px;">✝️</div>
+    <h1>Catholic Holy Week</h1>
+    <h2>Palm Sunday to Easter Sunday</h2>
+    <p class="subtitle">The most sacred week in the Catholic liturgical year — commemorating the Passion, Death, and Resurrection of Jesus Christ.</p>
+    <p class="subtitle" style="margin-top:20px; font-size:0.9rem; color:rgba(255,255,255,0.6);">St. Anna's Sunday School &bull; 6th &amp; 7th Grade</p>
+  </div>
+  <div class="accent-stripe bg-gold"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 2 — OVERVIEW
+     ======================================== -->
+<div class="slide slide-overview" role="group" aria-label="Slide 2: Overview">
+  <h2>Holy Week at a Glance</h2>
+  <p>Holy Week (<em>Hebdomada Sancta</em>) begins on Palm Sunday and ends on Easter Sunday. The <strong>Sacred Paschal Triduum</strong> — the holiest days of the entire Church year — begins with the evening Mass of the Lord's Supper on Holy Thursday, reaches its high point in the Easter Vigil, and closes with Evening Prayer (Vespers) on Easter Sunday.</p>
+  <table class="week-table">
+    <thead>
+      <tr><th>Day</th><th>Event</th><th>Key Theme</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🌿 Palm Sunday</td><td>Jesus enters Jerusalem</td><td>Triumph &amp; Coming Passion</td></tr>
+      <tr><td>🏛️ Monday</td><td>Cleansing of the Temple</td><td>Jesus' Authority</td></tr>
+      <tr><td>📖 Tuesday</td><td>Teaching in the Temple</td><td>The Greatest Commandment</td></tr>
+      <tr><td>🪙 Spy Wednesday</td><td>Judas agrees to betray Jesus</td><td>Betrayal for 30 Silver Pieces</td></tr>
+      <tr><td>🍞 Holy Thursday</td><td>Last Supper, Washing of Feet</td><td>Eucharist, Priesthood, Service</td></tr>
+      <tr><td>✝️ Good Friday</td><td>Crucifixion &amp; Death of Jesus</td><td>Sacrifice &amp; Redemption</td></tr>
+      <tr><td>🕯️ Holy Saturday</td><td>Jesus in the tomb / Easter Vigil</td><td>Waiting, Hope, New Life</td></tr>
+      <tr><td>🌅 Easter Sunday</td><td>Resurrection of Jesus</td><td>Victory over Death — He is Risen!</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ========================================
+     SLIDE 3 — PALM SUNDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-palm" role="group" aria-label="Slide 3: Palm Sunday Title" style="background: linear-gradient(135deg, #cc0000 0%, #990000 40%, #228B22 70%, #006400 100%);">
+  <div style="font-size:3rem; margin-bottom:10px;">🌿</div>
+  <h1>Palm Sunday</h1>
+  <h2>Palm Sunday of the Passion of the Lord</h2>
+  <p class="subtitle">Jesus enters Jerusalem in triumph — the crowds shout "Hosanna!"</p>
+  <div class="accent-stripe bg-red"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 4 — PALM SUNDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-red" role="group" aria-label="Slide 4: Palm Sunday Content">
+  <div class="day-banner">
+    <span class="day-icon">🌿</span>
+    <h2 class="color-red">Palm Sunday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>The Triumphal Entry</h3>
+    <p>Jesus entered Jerusalem riding on a donkey. Crowds spread palm branches and cloaks on the road, shouting praises. This fulfilled the Old Testament prophecy of the Messiah entering Jerusalem humbly.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"Hosanna to the Son of David; blessed is he who comes in the name of the Lord; hosanna in the highest."</p>
+      <span class="verse-ref">— Matthew 21:9 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"Exult greatly, O daughter Zion! Shout for joy, O daughter Jerusalem! Behold: your king is coming to you, a just savior is he, humble, and riding on a donkey, on a colt, the foal of a donkey."</p>
+      <span class="verse-ref">— Zechariah 9:9 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"So they took branches of palm trees and went out to meet him, and cried out: 'Hosanna! Blessed is he who comes in the name of the Lord, the king of Israel.'"</p>
+      <span class="verse-ref">— John 12:13 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 5 — PALM SUNDAY TRADITIONS
+     ======================================== -->
+<div class="slide slide-traditions" role="group" aria-label="Slide 5: Palm Sunday Traditions">
+  <div class="day-banner">
+    <span class="day-icon">🌿</span>
+    <h2 class="color-red">Palm Sunday — Traditions</h2>
+  </div>
+  <div class="traditions-grid">
+    <div class="tradition-card">
+      <span class="t-icon">🫒</span>
+      <div>
+        <h4>Blessing &amp; Procession of Palms</h4>
+        <p>Mass begins with a special procession. Palms are blessed by the priest and distributed to the faithful, who carry them into the church.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">📖</span>
+      <div>
+        <h4>Reading of the Passion</h4>
+        <p>The full Passion narrative is read aloud during Mass, from one of the Synoptic Gospels (Matthew, Mark, or Luke) on a three-year cycle.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">✝️</span>
+      <div>
+        <h4>Palms Are Kept</h4>
+        <p>Catholics take blessed palms home and display them (often behind a crucifix). These palms are later burned to create ashes for the next <strong>Ash Wednesday</strong>.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🔥</span>
+      <div>
+        <h4>Did You Know?</h4>
+        <p>The liturgical celebration of Jesus' entry into Jerusalem has been observed since at least the <strong>4th century</strong>. The pilgrim Egeria recorded palm processions in her travel diary (c. 381–384 AD).</p>
+      </div>
+    </div>
+  </div>
+  <div class="history-box" style="border-left: 4px solid #8B0000;">
+    <h4>Historical Importance</h4>
+    <p>Palm Sunday marks the beginning of Holy Week. Red vestments are worn because they symbolize the Passion and martyrdom — pointing ahead to the sacrifice of the Cross.</p>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 6 — MONDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-monday" role="group" aria-label="Slide 6: Monday Title" style="background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 50%, #4B0082 100%);">
+  <div style="font-size:3rem; margin-bottom:10px;">🏛️</div>
+  <h1>Monday of Holy Week</h1>
+  <h2>Cleansing of the Temple</h2>
+  <p class="subtitle">Jesus drives out the money changers — "My house shall be a house of prayer."</p>
+  <div class="accent-stripe bg-purple"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 7 — MONDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-purple" role="group" aria-label="Slide 7: Monday Content">
+  <div class="day-banner">
+    <span class="day-icon">🏛️</span>
+    <h2 class="color-purple">Monday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>Cleansing of the Temple</h3>
+    <p>Jesus returned to Jerusalem. According to the Gospels, He cleansed the Temple by driving out the money changers and merchants. This demonstrated His authority and zeal for proper worship of God.</p>
+    <p style="margin-top:14px;">It also increased the hostility of the chief priests and scribes, who began seeking a way to destroy Him (Mk 11:18).</p>
+    <h3 style="margin-top:20px;">The Anointing at Bethany</h3>
+    <p>The Gospel reading for Monday of Holy Week (Jn 12:1–11) recounts <strong>Mary of Bethany</strong> anointing Jesus’ feet with costly perfumed oil. Jesus said, <em>“Leave her alone. Let her keep this for the day of my burial”</em> (Jn 12:7) — foreshadowing His coming death.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"Jesus entered the temple area and drove out all those engaged in selling and buying there. He overturned the tables of the money changers and the seats of those who were selling doves. And he said to them, 'It is written: My house shall be a house of prayer, but you are making it a den of thieves.'"</p>
+      <span class="verse-ref">— Matthew 21:12–13 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"For my house shall be called a house of prayer for all peoples."</p>
+      <span class="verse-ref">— Isaiah 56:7 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 8 — TUESDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-tuesday" role="group" aria-label="Slide 8: Tuesday Title" style="background: linear-gradient(135deg, #7b2d8e 0%, #4B0082 40%, #daa520 70%, #b8860b 100%);">
+  <div style="font-size:3rem; margin-bottom:10px;">📖</div>
+  <h1>Tuesday of Holy Week</h1>
+  <h2>Teaching in the Temple</h2>
+  <p class="subtitle">Jesus teaches the Greatest Commandment — love God and love your neighbor.</p>
+  <div class="accent-stripe bg-purple"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 9 — TUESDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-purple" role="group" aria-label="Slide 9: Tuesday Content">
+  <div class="day-banner">
+    <span class="day-icon">📖</span>
+    <h2 class="color-purple">Tuesday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>Jesus Teaches</h3>
+    <p>Jesus spent much of this day teaching in the Temple. He debated with the Pharisees and Sadducees, told parables, and gave His discourse about the end times (the Olivet Discourse).</p>
+    <p style="margin-top:14px;">Catholics are encouraged to go to <strong>Confession</strong> (the Sacrament of Reconciliation) during Holy Week in preparation for Easter.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"You shall love the Lord, your God, with all your heart, with all your soul, and with all your mind. This is the greatest and the first commandment. The second is like it: You shall love your neighbor as yourself. The whole law and the prophets depend on these two commandments."</p>
+      <span class="verse-ref">— Matthew 22:37–40 (NABRE)</span>
+    </div>
+    <div class="verse-box" style="margin-top:14px;">
+      <p class="verse-text">"‘Amen, I say to you, whatever you did for one of these least brothers of mine, you did for me.’"</p>
+      <span class="verse-ref">— Matthew 25:40 (NABRE)</span>
+    </div>
+    <div class="verse-box" style="margin-top:14px;">
+      <p class="verse-text">Jesus also gave the parable of the judgment of the nations — the sheep and the goats — teaching that how we treat the least among us is how we treat Him (Matthew 25:31–46).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 10 — SPY WEDNESDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-spy-wed" role="group" aria-label="Slide 10: Spy Wednesday Title" style="background: linear-gradient(135deg, #2c3e50 0%, #4a6274 40%, #708090 70%, #36454F 100%);">
+  <div style="font-size:3rem; margin-bottom:10px;">🪙</div>
+  <h1>Spy Wednesday</h1>
+  <h2>The Betrayal of Judas</h2>
+  <p class="subtitle">Judas Iscariot agrees to hand Jesus over for thirty pieces of silver.</p>
+  <div class="accent-stripe bg-charcoal"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 11 — SPY WEDNESDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-charcoal" role="group" aria-label="Slide 11: Spy Wednesday Content">
+  <div class="day-banner">
+    <span class="day-icon">🪙</span>
+    <h2 class="color-charcoal">Spy Wednesday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>Judas' Betrayal</h3>
+    <p>Judas Iscariot went to the chief priests and agreed to betray Jesus for <strong>thirty pieces of silver</strong>. This act of betrayal set the Passion in motion.</p>
+    <p style="margin-top:14px;">This day is called "Spy Wednesday" because Judas acted as a spy against Jesus.</p>
+    <h3 style="margin-top:20px;">The Chrism Mass</h3>
+    <p>During Holy Week (usually on <strong>Holy Thursday morning</strong>, though some dioceses celebrate it earlier in the week), the bishop blesses the <strong>Sacred Chrism</strong>, the <strong>Oil of Catechumens</strong>, and the <strong>Oil of the Sick</strong> — the three holy oils used in the sacraments throughout the year. Priests renew their ordination promises.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"Then one of the Twelve, who was called Judas Iscariot, went to the chief priests and said, 'What are you willing to give me if I hand him over to you?' They paid him thirty pieces of silver, and from that time on he looked for an opportunity to hand him over."</p>
+      <span class="verse-ref">— Matthew 26:14–16 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"And they weighed out my wages, thirty pieces of silver."</p>
+      <span class="verse-ref">— Zechariah 11:12–13 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 12 — HOLY THURSDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-thursday" role="group" aria-label="Slide 12: Holy Thursday Title" style="background: linear-gradient(135deg, #b8860b 0%, #daa520 30%, #ffd700 60%, #b8860b 100%); color: #1a0a00;">
+  <div style="font-size:3rem; margin-bottom:10px;">🍞</div>
+  <h1>Holy Thursday</h1>
+  <h2>Thursday of the Lord's Supper</h2>
+  <p class="subtitle">Jesus institutes the Eucharist, washes His disciples' feet, and prays in the Garden.</p>
+  <div class="accent-stripe bg-gold"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 13 — HOLY THURSDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-gold" role="group" aria-label="Slide 13: Holy Thursday Content">
+  <div class="day-banner">
+    <span class="day-icon">🍞</span>
+    <h2 class="color-gold">Holy Thursday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>The Last Supper</h3>
+    <p>Jesus celebrated the <strong>Last Supper</strong> with His apostles — the Passover meal at which He instituted the <strong>Holy Eucharist</strong> and the <strong>Sacrament of Holy Orders</strong> (the priesthood).</p>
+    <p style="margin-top:12px;">He washed the feet of His disciples as an act of humble service. After supper, He went to the <strong>Garden of Gethsemane</strong>, where He prayed in agony and was arrested.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"This is my body, which will be given for you; do this in memory of me… This cup is the new covenant in my blood, which will be shed for you."</p>
+      <span class="verse-ref">— Luke 22:19–20 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"If I, therefore, the master and teacher, have washed your feet, you ought to wash one another's feet. I have given you a model to follow, so that as I have done for you, you should also do."</p>
+      <span class="verse-ref">— John 13:14–15 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"I give you a new commandment: love one another. As I have loved you, so you also should love one another."</p>
+      <span class="verse-ref">— John 13:34 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"My Father, if it is possible, let this cup pass from me; yet, not as I will, but as you will."</p>
+      <span class="verse-ref">— Matthew 26:39 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 14 — HOLY THURSDAY TRADITIONS
+     ======================================== -->
+<div class="slide slide-traditions" role="group" aria-label="Slide 14: Holy Thursday Traditions">
+  <div class="day-banner">
+    <span class="day-icon">🍞</span>
+    <h2 class="color-gold">Holy Thursday — Traditions</h2>
+  </div>
+  <div class="traditions-grid">
+    <div class="tradition-card">
+      <span class="t-icon">🫗</span>
+      <div>
+        <h4>Washing of the Feet (Mandatum)</h4>
+        <p>The priest washes the feet of members of the congregation, imitating Christ's act of humble service to His apostles.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🕯️</span>
+      <div>
+        <h4>Altar of Repose</h4>
+        <p>After Mass, the Eucharist is carried in procession to an Altar of Repose. The faithful keep watch in adoration — as Jesus asked His apostles in Gethsemane.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">⛪</span>
+      <div>
+        <h4>Stripping of the Altar</h4>
+        <p>The altar is stripped bare and the church is left unadorned to symbolize Christ's abandonment and humiliation.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🔔</span>
+      <div>
+        <h4>Bells Are Silenced</h4>
+        <p>Church bells are silenced after the Gloria and do not ring again until the Easter Vigil — a sign of mourning.</p>
+      </div>
+    </div>
+  </div>
+  <div class="history-box" style="border-left: 4px solid #D4AF37;">
+    <h4>Historical Importance</h4>
+    <p>Holy Thursday commemorates the institution of two sacraments: the <strong>Eucharist</strong> and <strong>Holy Orders</strong>. Jesus commanded, "Do this in memory of me" (Lk 22:19), establishing the priesthood and the sacrifice of the Mass.</p>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 15 — GOOD FRIDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-good-friday" role="group" aria-label="Slide 15: Good Friday Title" style="background: linear-gradient(180deg, #8b0000 0%, #660000 40%, #330000 70%, #110000 100%);">
+  <div style="font-size:3rem; margin-bottom:10px;">✝️</div>
+  <h1>Good Friday</h1>
+  <h2>Friday of the Passion of the Lord</h2>
+  <p class="subtitle">Jesus is crucified, dies, and is buried. He gave His life freely for the salvation of all humanity.</p>
+  <div class="accent-stripe bg-dark"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 16 — GOOD FRIDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-dark" role="group" aria-label="Slide 16: Good Friday Content">
+  <div class="day-banner">
+    <span class="day-icon">✝️</span>
+    <h2 class="color-dark">Good Friday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>The Crucifixion</h3>
+    <p>Jesus was tried before Pontius Pilate, scourged, crowned with thorns, and forced to carry His cross to <strong>Calvary</strong> (Golgotha). He was <strong>crucified</strong>, died, and was buried.</p>
+    <p style="margin-top:12px;">Jesus gave His life freely for the salvation of all humanity.</p>
+    <p style="margin-top:12px;">His <strong>Blessed Mother, Mary</strong>, stood at the foot of the Cross (Jn 19:25). From the Cross, Jesus entrusted Mary to the beloved disciple and the disciple to her — a moment the Catholic Church sees as Jesus giving Mary as mother to the whole Church.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box" style="border-left-color: #8B0000;">
+      <p class="verse-text">"It is finished."</p>
+      <span class="verse-ref">— John 19:30 (NABRE)</span>
+    </div>
+    <div class="verse-box" style="border-left-color: #8B0000;">
+      <p class="verse-text">"But he was pierced for our sins, crushed for our iniquity. He bore the punishment that makes us whole, by his wounds we were healed."</p>
+      <span class="verse-ref">— Isaiah 53:5 (NABRE)</span>
+    </div>
+    <div class="verse-box" style="border-left-color: #8B0000;">
+      <p class="verse-text">"Father, forgive them, they know not what they do."</p>
+      <span class="verse-ref">— Luke 23:34 (NABRE)</span>
+    </div>
+    <div class="verse-box" style="border-left-color: #8B0000;">
+      <p class="verse-text">"When Jesus saw his mother and the disciple there whom he loved, he said to his mother, 'Woman, behold, your son.' Then he said to the disciple, 'Behold, your mother.' And from that hour the disciple took her into his home."</p>
+      <span class="verse-ref">— John 19:26–27 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 17 — GOOD FRIDAY TRADITIONS
+     ======================================== -->
+<div class="slide slide-traditions" role="group" aria-label="Slide 17: Good Friday Traditions">
+  <div class="day-banner">
+    <span class="day-icon">✝️</span>
+    <h2 class="color-dark">Good Friday — Traditions</h2>
+  </div>
+  <div class="traditions-grid">
+    <div class="tradition-card">
+      <span class="t-icon">🚫</span>
+      <div>
+        <h4>No Mass Is Celebrated</h4>
+        <p>Good Friday is the only day of the year (along with Holy Saturday) when Mass is not celebrated. Instead, a solemn Celebration of the Passion takes place, usually at <strong>3:00 PM</strong>.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">✝️</span>
+      <div>
+        <h4>Veneration of the Cross</h4>
+        <p>A large cross is presented and the faithful come forward to reverence it by a kiss, genuflection, or bow. This practice dates to at least the <strong>4th century</strong> in Jerusalem.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🚶</span>
+      <div>
+        <h4>Stations of the Cross</h4>
+        <p>A devotion following Jesus' journey from His condemnation to His burial in <strong>14 stations</strong>. Many parishes pray this together.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🍽️</span>
+      <div>
+        <h4>Fasting &amp; Abstinence</h4>
+        <p><strong>Obligatory fasting</strong> (one full meal, two smaller meals) and <strong>abstinence from meat</strong> for Catholics ages 18–59 (fasting) and 14+ (abstinence).</p>
+      </div>
+    </div>
+  </div>
+  <div class="history-box" style="border-left: 4px solid #1a1a1a;">
+    <h4>Historical Importance</h4>
+    <p>Good Friday is the most solemn day in the Catholic calendar. Catholics believe that through His death, Jesus redeemed humanity from sin and opened the gates of heaven. The Good Friday liturgy has three parts: Liturgy of the Word, Veneration of the Cross, and Holy Communion.</p>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 18 — HOLY SATURDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-saturday" role="group" aria-label="Slide 18: Holy Saturday Title" style="background: linear-gradient(180deg, #000033 0%, #191970 35%, #4169E1 65%, #191970 100%);">
+  <div style="font-size:3rem; margin-bottom:10px;">🕯️</div>
+  <h1>Holy Saturday</h1>
+  <h2>The Great Sabbath</h2>
+  <p class="subtitle">The Church waits in silence. Jesus descends to the dead to bring salvation to the righteous.</p>
+  <div class="accent-stripe bg-midnight"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 19 — HOLY SATURDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content border-accent-midnight" role="group" aria-label="Slide 19: Holy Saturday Content">
+  <div class="day-banner">
+    <span class="day-icon">🕯️</span>
+    <h2 class="color-midnight">Holy Saturday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>In the Tomb</h3>
+    <p>Jesus' body lay in the tomb. The Church waits in silence and prayer. Catholic tradition holds that Christ <strong>descended to the dead</strong> (the "Harrowing of Hell") to bring salvation to the righteous who had died before Him.</p>
+    <p style="margin-top:12px;">The Apostles' Creed states: <em>"He descended into hell"</em> — meaning the realm of the dead, not the hell of the damned.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"For Christ also suffered for sins once, the righteous for the sake of the unrighteous, that he might lead you to God. Put to death in the flesh, he was brought to life in the spirit. In it he also went to preach to the spirits in prison."</p>
+      <span class="verse-ref">— 1 Peter 3:18–19 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"Taking the body, Joseph wrapped it in clean linen and laid it in his new tomb that he had hewn in the rock. Then he rolled a huge stone across the entrance to the tomb and departed."</p>
+      <span class="verse-ref">— Matthew 27:59–60 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 20 — EASTER VIGIL TRADITIONS
+     ======================================== -->
+<div class="slide slide-traditions" role="group" aria-label="Slide 20: Easter Vigil Traditions">
+  <div class="day-banner">
+    <span class="day-icon">🔥</span>
+    <h2 style="color:#D4AF37;">The Easter Vigil — The Most Solemn Liturgy</h2>
+  </div>
+  <div class="traditions-grid">
+    <div class="tradition-card">
+      <span class="t-icon">🔥</span>
+      <div>
+        <h4>1. Service of Light</h4>
+        <p>A large Easter fire is blessed outside the darkened church. A <strong>brand-new Paschal Candle</strong> — prepared fresh each year — is inscribed with a cross, the current year, and the Greek letters Alpha and Omega, signifying that Christ is the beginning and end of all things. The priest inserts five grains of incense into the candle, representing the five wounds of Christ. The new Paschal Candle is then lit from the Easter fire, symbolizing the Risen Christ as the Light of the World. As the candle is carried into the dark church, the faithful light their own candles from its flame, and the joyful hymn known as the <strong>Exsultet</strong> (Easter Proclamation) is sung.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">📖</span>
+      <div>
+        <h4>2. Liturgy of the Word</h4>
+        <p>Up to <strong>seven Old Testament readings</strong> trace salvation history — from Creation (Gen 1) through the Exodus (Ex 14) to the prophets — followed by the Epistle and Gospel.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">💧</span>
+      <div>
+        <h4>3. Liturgy of Baptism</h4>
+        <p>Catechumens receive <strong>Baptism, Confirmation, and First Eucharist</strong>. The baptismal water is blessed. All the faithful <strong>renew their baptismal promises</strong>.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🔔</span>
+      <div>
+        <h4>4. Liturgy of the Eucharist</h4>
+        <p>The first Mass of Easter is celebrated. <strong>Church bells ring again</strong> during the Gloria! The church is decorated with flowers and light.</p>
+      </div>
+    </div>
+  </div>
+  <div class="history-box" style="border-left: 4px solid #191970;">
+    <h4>Historical Importance</h4>
+    <p>The Easter Vigil is the <strong>oldest and most solemn liturgy</strong> in the Church, with roots to the earliest centuries of Christianity. Baptizing new Christians at the Easter Vigil dates to at least the <strong>2nd century</strong>. <em>"If, then, we have died with Christ, we believe that we shall also live with him."</em> — Romans 6:8</p>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 21 — EASTER SUNDAY TITLE
+     ======================================== -->
+<div class="slide slide-title title-easter" role="group" aria-label="Slide 21: Easter Sunday Title" style="background: linear-gradient(0deg, #b8860b 0%, #ffd700 25%, #ffec8b 50%, #fffacd 75%, #ffffff 100%); color: #1a0a2e;">
+  <div style="font-size:3.5rem; margin-bottom:10px;">🌅</div>
+  <h1>Easter Sunday</h1>
+  <h2>The Resurrection of the Lord</h2>
+  <p class="subtitle">He is not here, for He has been raised just as He said!</p>
+  <div class="accent-stripe" style="background: linear-gradient(90deg, #FFD700, #FFFACD, #FFFFFF);"></div>
+</div>
+
+<!-- ========================================
+     SLIDE 22 — EASTER SUNDAY CONTENT
+     ======================================== -->
+<div class="slide slide-content" role="group" aria-label="Slide 22: Easter Sunday Content">
+  <div class="day-banner">
+    <span class="day-icon">🌅</span>
+    <h2 style="color: #D4AF37;">Easter Sunday — What Happened</h2>
+  </div>
+  <div class="content-left">
+    <h3>The Resurrection</h3>
+    <p><strong>Jesus Christ rose from the dead.</strong> Early on Sunday morning, women went to the tomb and found it empty. An angel announced that Jesus had risen. He appeared to His disciples alive.</p>
+    <p style="margin-top:12px;">The Resurrection is the <strong>foundation of the entire Christian faith</strong>.</p>
+  </div>
+  <div class="content-right">
+    <div class="verse-box">
+      <p class="verse-text">"Do not be afraid! I know that you are seeking Jesus the crucified. He is not here, for he has been raised just as he said."</p>
+      <span class="verse-ref">— Matthew 28:5–6 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"Jesus said to her, 'Mary!' She turned and said to him in Hebrew, 'Rabbouni,' which means Teacher."</p>
+      <span class="verse-ref">— John 20:16 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"And if Christ has not been raised, then empty too is our preaching; empty, too, your faith."</p>
+      <span class="verse-ref">— 1 Corinthians 15:14 (NABRE)</span>
+    </div>
+    <div class="verse-box">
+      <p class="verse-text">"We know that Christ, raised from the dead, dies no more; death no longer has power over him."</p>
+      <span class="verse-ref">— Romans 6:9 (NABRE)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 23 — EASTER SUNDAY TRADITIONS
+     ======================================== -->
+<div class="slide slide-traditions" role="group" aria-label="Slide 23: Easter Sunday Traditions">
+  <div class="day-banner">
+    <span class="day-icon">🌅</span>
+    <h2 style="color:#D4AF37;">Easter Sunday — Traditions</h2>
+  </div>
+  <div class="traditions-grid">
+    <div class="tradition-card">
+      <span class="t-icon">⛪</span>
+      <div>
+        <h4>Easter Sunday Mass</h4>
+        <p>Celebrated with great joy. White and gold vestments are worn. The church is decorated with lilies. The <strong>Alleluia</strong>, silent during Lent, returns!</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🗣️</span>
+      <div>
+        <h4>The Easter Greeting</h4>
+        <p><em>"Christ is risen!"</em> — <em>"He is truly risen!"</em> Catholics around the world greet each other with these words of joy.</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">📅</span>
+      <div>
+        <h4>Eastertide — 50 Days</h4>
+        <p>Easter is not just one day — it begins the <strong>Easter Season</strong>, lasting <strong>50 days</strong> until Pentecost Sunday. Every Sunday is a "little Easter."</p>
+      </div>
+    </div>
+    <div class="tradition-card">
+      <span class="t-icon">🎵</span>
+      <div>
+        <h4>Victimae Paschali Laudes</h4>
+        <p>The ancient Sequence hymn <em>"Praises to the Paschal Victim"</em> is sung at Mass. The Paschal Candle remains lit at every liturgy.</p>
+      </div>
+    </div>
+  </div>
+  <div class="history-box" style="border-left: 4px solid #D4AF37;">
+    <h4>Historical Importance</h4>
+    <p>Easter is the <strong>oldest and greatest feast</strong> in the Catholic Church. The entire liturgical year revolves around it. The celebration of Easter on a Sunday is the reason Catholics gather for Mass every Sunday — each Sunday is a celebration of the Resurrection.</p>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 24 — KEY TERMS
+     ======================================== -->
+<div class="slide slide-terms" role="group" aria-label="Slide 24: Key Catholic Terms">
+  <h2>Key Catholic Terms</h2>
+  <div class="terms-grid">
+    <div class="term-card">
+      <h4>Paschal Triduum</h4>
+      <p>The three holiest days — beginning with the evening Mass of the Lord's Supper on Holy Thursday, through Good Friday and Holy Saturday, and concluding with Evening Prayer on Easter Sunday — celebrating Christ's Passion, Death, and Resurrection.</p>
+    </div>
+    <div class="term-card">
+      <h4>Eucharist</h4>
+      <p>The Body and Blood of Christ, instituted by Jesus at the Last Supper.</p>
+    </div>
+    <div class="term-card">
+      <h4>Passion</h4>
+      <p>The suffering and death of Jesus on the Cross.</p>
+    </div>
+    <div class="term-card">
+      <h4>Liturgy</h4>
+      <p>The official public worship of the Church, especially the Mass.</p>
+    </div>
+    <div class="term-card">
+      <h4>Paschal Candle</h4>
+      <p>A large candle prepared new each year, inscribed with a cross, the year, and Alpha/Omega. It is lit from the Easter fire at the Easter Vigil and symbolizes the Risen Christ as the Light of the World. It remains lit throughout the Easter Season and at Baptisms and funerals.</p>
+    </div>
+    <div class="term-card">
+      <h4>Veneration of the Cross</h4>
+      <p>The act of showing reverence to the Cross on Good Friday.</p>
+    </div>
+    <div class="term-card">
+      <h4>Stations of the Cross</h4>
+      <p>A 14-station devotion following Jesus' path from condemnation to burial.</p>
+    </div>
+    <div class="term-card">
+      <h4>Chrism</h4>
+      <p>Sacred oil blessed by the bishop, used in Baptism, Confirmation, and Holy Orders.</p>
+    </div>
+    <div class="term-card">
+      <h4>Catechumen</h4>
+      <p>A person preparing to be baptized and received into the Catholic Church.</p>
+    </div>
+    <div class="term-card">
+      <h4>Alleluia</h4>
+      <p>A joyful exclamation meaning "Praise the Lord," omitted during Lent and restored at Easter.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 25 — QUIZ
+     ======================================== -->
+<div class="slide slide-quiz" role="group" aria-label="Slide 25: Quiz">
+  <h2>Quick Quiz! 🧠</h2>
+
+  <div class="quiz-question" id="q1">
+    <h3>1. What did Jesus do on Holy Thursday?</h3>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Entered Jerusalem on a donkey</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, true)">Celebrated the Last Supper &amp; washed the disciples' feet</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Cleansed the Temple</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Rose from the dead</button>
+    </div>
+  </div>
+
+  <div class="quiz-question" id="q2">
+    <h3>2. How many pieces of silver was Jesus betrayed for?</h3>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">10</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, true)">30</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">50</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">100</button>
+    </div>
+  </div>
+
+  <div class="quiz-question" id="q3">
+    <h3>3. What is the most important liturgy of the entire Church year?</h3>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Christmas Midnight Mass</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Good Friday service</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, true)">The Easter Vigil</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Ash Wednesday</button>
+    </div>
+  </div>
+
+  <div class="quiz-question" id="q4">
+    <h3>4. What does "Alleluia" mean?</h3>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Peace be with you</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Amen</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">God is good</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, true)">Praise the Lord</button>
+    </div>
+  </div>
+
+  <div class="quiz-question" id="q5">
+    <h3>5. Who stood at the foot of the Cross when Jesus was crucified?</h3>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">All twelve apostles</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, true)">His mother Mary and the beloved disciple</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Pontius Pilate</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">The chief priests</button>
+    </div>
+  </div>
+
+  <div class="quiz-question" id="q6">
+    <h3>6. What sacrament did Jesus institute at the Last Supper with the words "Do this in memory of me"?</h3>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Baptism</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Confirmation</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, true)">The Eucharist</button>
+      <button class="quiz-btn" onclick="checkAnswer(this, false)">Anointing of the Sick</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     SLIDE 26 — FLAPPY DOVE GAME
+     ======================================== -->
+<div class="slide" role="group" aria-label="Slide 26: Easter Game" style="background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 40%, #FFFACD 75%, #FFD700 100%); padding: 0; justify-content: flex-start; align-items: stretch;">
+
+  <div id="game-wrapper" style="position:relative; width:100%; height:100%; overflow:hidden; font-family:'Nunito',sans-serif;">
+
+    <!-- Start / Game-over overlay -->
+    <div id="game-overlay" style="position:absolute; inset:0; z-index:20; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(26,10,62,0.82); color:#fff; text-align:center;">
+      <div style="font-size:3.5rem; margin-bottom:10px;">🕊️</div>
+      <h2 style="font-family:'Cinzel',Georgia,serif; font-size:clamp(1.6rem,4vw,2.4rem); color:#FFD700; margin-bottom:8px;">Flappy Dove</h2>
+      <p style="font-size:1rem; max-width:420px; line-height:1.5; color:rgba(255,255,255,0.85); margin-bottom:6px;">Guide the dove through the church pillars!<br>Collect ✝️ palms and hosts for bonus points.</p>
+      <p id="game-final-score" style="font-size:1.2rem; color:#FFD700; margin-bottom:14px; display:none;"></p>
+      <button id="game-start-btn" style="font-family:'Cinzel',Georgia,serif; font-size:1.1rem; padding:12px 36px; border:2px solid #FFD700; border-radius:8px; background:rgba(212,175,55,0.25); color:#FFD700; cursor:pointer; transition:background 0.2s;">Click or Press Space to Play</button>
+      <p style="font-size:0.8rem; color:rgba(255,255,255,0.5); margin-top:10px;">Space / Click / Tap to flap</p>
+    </div>
+
+    <!-- Game canvas -->
+    <canvas id="game-canvas" style="display:block; width:100%; height:100%;"></canvas>
+
+  </div>
+
+  <script>
+  (function(){
+    /* ---------- DOM refs ---------- */
+    const canvas  = document.getElementById('game-canvas');
+    const ctx     = canvas.getContext('2d');
+    const overlay = document.getElementById('game-overlay');
+    const startBtn= document.getElementById('game-start-btn');
+    const finalTxt= document.getElementById('game-final-score');
+
+    /* ---------- Game constants ---------- */
+    const GRAVITY    = 0.45;
+    const FLAP       = -7.5;
+    const PIPE_SPEED_BASE = 2.8;
+    const PIPE_SPEED_MAX  = 12;
+    const RAMP_START = 300;  // ~5 seconds at 60fps
+    const RAMP_FRAMES = 900; // ramp over ~15 more seconds
+    function getSpeed(){
+      if(frameCount < RAMP_START) return PIPE_SPEED_BASE;
+      var t = Math.min((frameCount - RAMP_START) / RAMP_FRAMES, 1);
+      return PIPE_SPEED_BASE + (PIPE_SPEED_MAX - PIPE_SPEED_BASE) * t;
+    }
+    function getPipeFreq(){
+      if(frameCount < RAMP_START) return 110;
+      var t = Math.min((frameCount - RAMP_START) / RAMP_FRAMES, 1);
+      return Math.round(110 - t * 40); // shrinks from 110 to 70
+    }
+    const PIPE_GAP   = 155;
+    const PIPE_WIDTH = 60;
+    const PIPE_FREQ  = 110;        // frames between pipes
+    const DOVE_SIZE  = 32;
+    const COLLECTIBLE_CHANCE = 0.4;
+
+    /* ---------- State ---------- */
+    let running = false, frameId = null, frameCount = 0;
+    let dove, pipes, collectibles, score, bestScore = 0;
+
+    /* ---------- Resize canvas to wrapper ---------- */
+    function resize(){
+      const w = canvas.parentElement.clientWidth;
+      const h = canvas.parentElement.clientHeight;
+      canvas.width = w;
+      canvas.height = h;
+    }
+
+    /* ---------- Init ---------- */
+    function init(){
+      resize();
+      dove = { x: canvas.width * 0.22, y: canvas.height / 2, vy: 0, angle: 0 };
+      pipes = [];
+      collectibles = [];
+      score = 0;
+      frameCount = 0;
+      // pre-spawn two pipes close to the player
+      spawnPipeAt(canvas.width * 0.52);
+      spawnPipeAt(canvas.width * 0.52 + 220);
+    }
+
+    /* ---------- Spawn pipe at a given x ---------- */
+    function spawnPipeAt(xPos){
+      const minTop = 60;
+      const maxTop = canvas.height - PIPE_GAP - 80;
+      const topH   = minTop + Math.random() * (maxTop - minTop);
+      pipes.push({ x: xPos, topH: topH, scored: false });
+      if(Math.random() < COLLECTIBLE_CHANCE){
+        const cy = topH + PIPE_GAP / 2;
+        const types = ['✝️','🌿','🍞','☀️'];
+        collectibles.push({ x: xPos + PIPE_WIDTH / 2, y: cy, type: types[Math.floor(Math.random()*types.length)], alive: true });
+      }
+    }
+
+    /* ---------- Spawn pipe ---------- */
+    function spawnPipe(){
+      const minTop = 60;
+      const maxTop = canvas.height - PIPE_GAP - 80;
+      const topH   = minTop + Math.random() * (maxTop - minTop);
+      pipes.push({ x: canvas.width, topH: topH, scored: false });
+
+      // maybe add a collectible in the gap
+      if(Math.random() < COLLECTIBLE_CHANCE){
+        const cy = topH + PIPE_GAP / 2;
+        const types = ['✝️','🌿','🍞','☀️'];
+        collectibles.push({
+          x: canvas.width + PIPE_WIDTH / 2,
+          y: cy,
+          type: types[Math.floor(Math.random()*types.length)],
+          alive: true
+        });
+      }
+    }
+
+    /* ---------- Draw helpers ---------- */
+    function drawDove(){
+      ctx.save();
+      ctx.translate(dove.x, dove.y);
+      dove.angle = Math.min(Math.max(dove.vy * 3, -30), 70);
+      ctx.rotate(dove.angle * Math.PI / 180);
+      ctx.scale(-1, 1);  // flip horizontally to face right
+      ctx.font = DOVE_SIZE + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🕊️', 0, 0);
+      ctx.restore();
+    }
+
+    function drawPipe(p){
+      // top pillar
+      const grad1 = ctx.createLinearGradient(p.x, 0, p.x + PIPE_WIDTH, 0);
+      grad1.addColorStop(0, '#6b5b3a');
+      grad1.addColorStop(0.5, '#8B7355');
+      grad1.addColorStop(1, '#6b5b3a');
+      ctx.fillStyle = grad1;
+      ctx.fillRect(p.x, 0, PIPE_WIDTH, p.topH);
+      // top cap
+      ctx.fillStyle = '#D4AF37';
+      ctx.fillRect(p.x - 5, p.topH - 18, PIPE_WIDTH + 10, 18);
+      // cross on top cap
+      ctx.fillStyle = '#8B0000';
+      ctx.fillRect(p.x + PIPE_WIDTH/2 - 2, p.topH - 16, 4, 14);
+      ctx.fillRect(p.x + PIPE_WIDTH/2 - 7, p.topH - 12, 14, 4);
+
+      // bottom pillar
+      const botY = p.topH + PIPE_GAP;
+      ctx.fillStyle = grad1;
+      ctx.fillRect(p.x, botY, PIPE_WIDTH, canvas.height - botY);
+      // bottom cap
+      ctx.fillStyle = '#D4AF37';
+      ctx.fillRect(p.x - 5, botY, PIPE_WIDTH + 10, 18);
+      // cross on bottom cap
+      ctx.fillStyle = '#8B0000';
+      ctx.fillRect(p.x + PIPE_WIDTH/2 - 2, botY + 2, 4, 14);
+      ctx.fillRect(p.x + PIPE_WIDTH/2 - 7, botY + 6, 14, 4);
+    }
+
+    function drawCollectibles(){
+      ctx.font = '26px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      collectibles.forEach(c => { if(c.alive) ctx.fillText(c.type, c.x, c.y); });
+    }
+
+    function drawScore(){
+      ctx.fillStyle = 'rgba(26,10,62,0.6)';
+      ctx.fillRect(canvas.width/2 - 50, 10, 100, 38);
+      ctx.fillStyle = '#FFD700';
+      ctx.font = 'bold 22px Nunito, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Score: ' + score, canvas.width/2, 30);
+    }
+
+    function drawGround(){
+      ctx.fillStyle = '#5a8c3a';
+      ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
+      ctx.fillStyle = '#4a7a2e';
+      for(let i = 0; i < canvas.width; i += 40){
+        ctx.fillRect(i, canvas.height - 20, 20, 4);
+      }
+    }
+
+    /* ---------- Collision ---------- */
+    function collides(){
+      const r = DOVE_SIZE * 0.35;
+      // ground / ceiling
+      if(dove.y - r < 0 || dove.y + r > canvas.height - 20) return true;
+      for(const p of pipes){
+        if(dove.x + r > p.x && dove.x - r < p.x + PIPE_WIDTH){
+          if(dove.y - r < p.topH || dove.y + r > p.topH + PIPE_GAP) return true;
+        }
+      }
+      return false;
+    }
+
+    /* ---------- Game loop ---------- */
+    function loop(){
+      frameCount++;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Background (drawn by CSS, but fill a sky gradient on canvas too)
+      const sky = ctx.createLinearGradient(0,0,0,canvas.height);
+      sky.addColorStop(0,'#87CEEB');
+      sky.addColorStop(0.5,'#B0E0E6');
+      sky.addColorStop(0.8,'#FFFACD');
+      sky.addColorStop(1,'#FFD700');
+      ctx.fillStyle = sky;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // clouds
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      for(let i=0;i<4;i++){
+        const cx = ((frameCount * 0.3 + i * 250) % (canvas.width + 120)) - 60;
+        ctx.beginPath();
+        ctx.ellipse(cx, 50 + i*35, 60, 22, 0, 0, Math.PI*2);
+        ctx.fill();
+      }
+
+      drawGround();
+
+      // Dove physics
+      dove.vy += GRAVITY;
+      dove.y  += dove.vy;
+
+      // Pipes
+      if(frameCount % getPipeFreq() === 0) spawnPipe();
+      pipes.forEach(p => { p.x -= getSpeed(); });
+      pipes = pipes.filter(p => p.x + PIPE_WIDTH > -10);
+
+      // Score
+      pipes.forEach(p => {
+        if(!p.scored && p.x + PIPE_WIDTH < dove.x){
+          p.scored = true;
+          score++;
+        }
+      });
+
+      // Collectibles
+      collectibles.forEach(c => {
+        c.x -= getSpeed();
+        if(c.alive){
+          const dx = dove.x - c.x, dy = dove.y - c.y;
+          if(Math.sqrt(dx*dx + dy*dy) < 28){
+            c.alive = false;
+            score += 1;
+          }
+        }
+      });
+      collectibles = collectibles.filter(c => c.x > -30);
+
+      // Draw
+      pipes.forEach(drawPipe);
+      drawCollectibles();
+      drawDove();
+      drawScore();
+
+      // Collision
+      if(collides()){
+        gameOver();
+        return;
+      }
+
+      frameId = requestAnimationFrame(loop);
+    }
+
+    /* ---------- Flap ---------- */
+    function flap(){
+      if(!running) return;
+      dove.vy = FLAP;
+    }
+
+    /* ---------- Start / Restart ---------- */
+    function startGame(){
+      init();
+      overlay.style.display = 'none';
+      running = true;
+      if(frameId) cancelAnimationFrame(frameId);
+      loop();
+    }
+
+    function gameOver(){
+      running = false;
+      if(frameId){ cancelAnimationFrame(frameId); frameId = null; }
+      if(score > bestScore) bestScore = score;
+      finalTxt.style.display = 'block';
+      finalTxt.textContent = 'Score: ' + score + '   |   Best: ' + bestScore;
+      startBtn.textContent = 'Play Again';
+      overlay.style.display = 'flex';
+    }
+
+    /* ---------- Event listeners ---------- */
+    startBtn.addEventListener('click', function(e){ e.stopPropagation(); startGame(); });
+
+    // We only handle game inputs when the game slide is active
+    function isGameSlideActive(){
+      const slide = canvas.closest('.slide');
+      return slide && slide.classList.contains('active');
+    }
+
+    document.addEventListener('keydown', function(e){
+      if(!isGameSlideActive()) return;
+      if(e.key === ' ' || e.key === 'ArrowUp'){
+        e.preventDefault();
+        e.stopPropagation();
+        if(!running){ startGame(); } else { flap(); }
+      }
+    }, true);
+
+    canvas.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(!running){ startGame(); } else { flap(); }
+    });
+
+    canvas.addEventListener('touchstart', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(!running){ startGame(); } else { flap(); }
+    }, { passive: false });
+
+    // Resize on window resize
+    window.addEventListener('resize', function(){
+      if(isGameSlideActive() && !running) resize();
+    });
+
+    // Pause when navigating away
+    const obs = new MutationObserver(function(){
+      const slide = canvas.closest('.slide');
+      if(slide && !slide.classList.contains('active') && running){
+        running = false;
+        if(frameId){ cancelAnimationFrame(frameId); frameId = null; }
+      }
+    });
+    const slide = canvas.closest('.slide');
+    if(slide) obs.observe(slide, { attributes: true, attributeFilter: ['class'] });
+
+  })();
+  </script>
+
+</div>
+
+<!-- ========================================
+     SLIDE 27 — CLOSING
+     ======================================== -->
+<div class="slide slide-closing" role="group" aria-label="Slide 27: Closing">
+  <div style="font-size:4rem; margin-bottom:16px;">✝️ 🌅</div>
+  <h1>He is Risen!</h1>
+  <h2>Alleluia!</h2>
+  <p>"For I handed on to you as of first importance what I also received: that Christ died for our sins in accordance with the scriptures; that he was buried; that he was raised on the third day in accordance with the scriptures."</p>
+  <span class="verse-ref">— 1 Corinthians 15:3–4 (NABRE)</span>
+  <p style="margin-top:30px; font-style: normal; font-family: 'Nunito', sans-serif; font-size: 1rem; color: #555;">
+    All Bible verses cited from the New American Bible Revised Edition (NABRE)<br>
+    St. Anna's Sunday School &bull; Holy Week
+  </p>
+</div>
+
+</div><!-- end .deck -->
+
+<!-- ============================================
+     NAVIGATION CONTROLS
+     ============================================ -->
+<div class="nav-controls">
+  <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" aria-label="Previous slide" disabled>&#9664;</button>
+  <span class="slide-counter" id="slideCounter">1 / 26</span>
+  <button class="nav-btn" id="btnNext" onclick="navigate(1)" aria-label="Next slide">&#9654;</button>
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  let current = 0;
+  const total = slides.length;
+
+  function showSlide(index) {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      s.style.display = 'none';
+      if (i === index) {
+        s.classList.add('active');
+        s.style.display = s.classList.contains('slide-content') ? 'grid' : 'flex';
+        s.style.opacity = '1';
+        s.style.transform = 'none';
+        s.style.pointerEvents = 'auto';
+        s.style.zIndex = '2';
+      } else if (i < index) {
+        s.classList.add('prev');
+        s.style.opacity = '';
+        s.style.transform = '';
+        s.style.pointerEvents = 'none';
+        s.style.zIndex = '';
+      } else {
+        s.style.opacity = '';
+        s.style.transform = '';
+        s.style.pointerEvents = 'none';
+        s.style.zIndex = '';
+      }
+    });
+    counter.textContent = (index + 1) + ' / ' + total;
+    btnPrev.disabled = (index === 0);
+    btnNext.disabled = (index === total - 1);
+  }
+
+  window.navigate = function(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= total) return;
+    current = next;
+    showSlide(current);
+  };
+
+  // Keyboard navigation (skip game-intercepted keys when on game slide)
+  document.addEventListener('keydown', function(e) {
+    var gameCanvas = document.getElementById('game-canvas');
+    var onGameSlide = gameCanvas && gameCanvas.closest('.slide') && gameCanvas.closest('.slide').classList.contains('active');
+    if (onGameSlide && (e.key === ' ' || e.key === 'ArrowUp')) return; // let game handle it
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      navigate(1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      navigate(-1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      current = 0;
+      showSlide(current);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      current = total - 1;
+      showSlide(current);
+    }
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 60) {
+      navigate(diff > 0 ? 1 : -1);
+    }
+  }, { passive: true });
+
+  // Quiz answer checking
+  window.checkAnswer = function(btn, isCorrect) {
+    const options = btn.parentElement.querySelectorAll('.quiz-btn');
+    options.forEach(b => {
+      b.disabled = true;
+      b.style.opacity = '0.7';
+    });
+    btn.style.opacity = '1';
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    if (!isCorrect) {
+      options.forEach(b => {
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
+          b.classList.add('correct');
+          b.style.opacity = '1';
+        }
+      });
+    }
+  };
+
+  // Initialize
+  showSlide(0);
+})();
+</script>
+
+</body>
+</html>
